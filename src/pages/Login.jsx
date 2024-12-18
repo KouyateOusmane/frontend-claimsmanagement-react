@@ -1,26 +1,30 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import api from '../api/api';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [errorMessage, setErrorMessage] = useState('');
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post('/insureds/login', credentials);
+      const response = await api.post('/insureds/login', credentials);
+      login(response.data.token); // Mise à jour de l'état global d'authentification
+      localStorage.setItem('userId', response.data.insuredId); 
       navigate('/view-claims');
     } catch (error) {
-      setErrorMessage('Erreur lors de la connexion : ' + error.response.data.message);
+      setErrorMessage(error.response?.data?.message || "Erreur inattendue.");
     }
   };
 
   return (
     <div className="container mt-5">
       <h2 className="text-center">Se connecter</h2>
-      {errorMessage && <div className="alert alert-danger" role="alert">{errorMessage}</div>}
+      {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
       <form onSubmit={handleSubmit} className="mt-4">
         <div className="mb-3">
           <label className="form-label">Email</label>
@@ -42,9 +46,6 @@ const Login = () => {
         </div>
         <button type="submit" className="btn btn-primary w-100">Se connecter</button>
       </form>
-      <p className="text-center mt-3">
-        Pas encore de compte ? <a href="/signup">Créer un compte</a>
-      </p>
     </div>
   );
 };
