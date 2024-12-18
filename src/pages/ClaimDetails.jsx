@@ -73,7 +73,7 @@ const ClaimDetails = () => {
             </div>
             <div className="col-md-6">
               <p>
-                <strong>💰 Montant estimé :</strong> {claim.estimatedAmount} €
+                <strong>💰 Montant estimé :</strong> {claim.estimatedAmount} $
               </p>
             </div>
           </div>

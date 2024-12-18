@@ -57,12 +57,15 @@ const EditClaim = () => {
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label className="form-label">Type de sinistre</label>
-          <input
-            type="text"
-            className="form-control"
+          <select
+            className="form-select"
             value={claim.claimType}
             onChange={(e) => setClaim({ ...claim, claimType: e.target.value })}
-          />
+          >
+            <option value="">-- Sélectionnez --</option>
+            <option value="Automobile">Automobile</option>
+            <option value="Habitation">Habitation</option>
+          </select>
         </div>
         <div className="mb-3">
           <label className="form-label">Description</label>
