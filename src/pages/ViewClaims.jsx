@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api/api';
-import { FaEdit, FaInfoCircle } from 'react-icons/fa'; // Import des icônes
+import { FaEdit, FaInfoCircle, FaFileUpload } from 'react-icons/fa'; // Import des icônes
 
 const ViewClaims = () => {
   const [claims, setClaims] = useState([]);
@@ -55,6 +55,7 @@ const ViewClaims = () => {
                 <td>{getStatusLabel(claim.status)}</td>
                 <td>{new Date(claim.incidentDate).toLocaleDateString()}</td>
                 <td>
+                  {/* Bouton Détails */}
                   <Link
                     to={`/view-claims/${claim.id}`}
                     className="btn btn-info btn-sm mx-1"
@@ -62,13 +63,28 @@ const ViewClaims = () => {
                   >
                     <FaInfoCircle /> Détails
                   </Link>
-                  <Link
-                    to={`/edit-claim/${claim.id}`} // Redirection vers la page d'édition
-                    className="btn btn-warning btn-sm mx-1"
-                    title="Modifier"
-                  >
-                    <FaEdit /> Modifier
-                  </Link>
+
+                  {/* Bouton Modifier pour le statut "Soumis" */}
+                  {claim.status === 0 && (
+                    <Link
+                      to={`/edit-claim/${claim.id}`}
+                      className="btn btn-warning btn-sm mx-1"
+                      title="Modifier"
+                    >
+                      <FaEdit /> Modifier
+                    </Link>
+                  )}
+
+                  {/* Bouton Envoyer des pièces additionnelles pour "En cours de révision" */}
+                  {claim.status === 1 && (
+                    <Link
+                      to={`/submit-additional/${claim.id}`}
+                      className="btn btn-success btn-sm mx-1"
+                      title="Envoyer des pièces additionnelles"
+                    >
+                      <FaFileUpload /> Envoyer des pièces
+                    </Link>
+                  )}
                 </td>
               </tr>
             ))}
