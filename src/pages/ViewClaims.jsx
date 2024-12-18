@@ -62,13 +62,13 @@ const ViewClaims = () => {
                   >
                     <FaInfoCircle /> Détails
                   </Link>
-                  <button
+                  <Link
+                    to={`/edit-claim/${claim.id}`} // Redirection vers la page d'édition
                     className="btn btn-warning btn-sm mx-1"
                     title="Modifier"
-                    disabled
                   >
                     <FaEdit /> Modifier
-                  </button>
+                  </Link>
                 </td>
               </tr>
             ))}

@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // Importation de useNavigate
 import api from '../api/api';
 
 const ClaimDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate(); // Initialisation du hook useNavigate
   const [claim, setClaim] = useState(null);
+
+  // Fonction pour revenir à la liste des réclamations
+  const handleBack = () => {
+    navigate('/view-claims'); // Redirige vers la liste des réclamations
+  };
 
   // Fonction pour traduire les statuts en français
   const getStatusLabel = (status) => {
@@ -86,7 +92,7 @@ const ClaimDetails = () => {
         <div className="card-footer text-end">
           <button
             className="btn btn-secondary"
-            onClick={() => window.history.back()}
+            onClick={handleBack}
           >
             Retour
           </button>

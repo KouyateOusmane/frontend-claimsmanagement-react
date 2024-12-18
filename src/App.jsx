@@ -10,6 +10,8 @@ import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 import ClaimDetails from './pages/ClaimDetails';
 import { AuthProvider } from './context/AuthContext';
+import ClaimSubmitted from './pages/ClaimSubmitted';
+import EditClaim from './pages/EditClaim';
 
 const App = () => {
   return (
@@ -39,10 +41,26 @@ const App = () => {
                 }
               />
               <Route
+                path="/claim-submitted"
+                element={
+                  <ProtectedRoute>
+                    <ClaimSubmitted />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
                 path="/view-claims/:id"
                 element={
                   <ProtectedRoute>
                     <ClaimDetails />
+                  </ProtectedRoute>
+                }
+              />
+               <Route
+                path="/edit-claim/:id"
+                element={
+                  <ProtectedRoute>
+                    <EditClaim  />
                   </ProtectedRoute>
                 }
               />
